@@ -60,11 +60,12 @@ function handlePointerDown(e: PointerEvent) {
     :data-cell-row="cellInfo.row"
     class="relative aspect-square w-full flex items-center justify-center bg-white transition-colors duration-150 cursor-pointer overflow-hidden group select-none touch-none"
     :class="[
-      // Move Highlights
+      // Selection & Move Highlights (all ring-inset to stay strictly inside square grid)
+      isSelected ? 'bg-amber-100/80 ring-2 sm:ring-3 ring-amber-500 ring-inset z-10' : '',
       isLastMoveFrom ? 'bg-amber-100/90 ring-2 ring-amber-400 ring-inset' : '',
       isLastMoveTo ? 'bg-amber-200/95 ring-3 ring-amber-500 ring-inset' : '',
-      isHintTarget ? 'ring-4 ring-emerald-500 animate-pulse bg-emerald-50' : '',
-      isDragHovered && isValidMoveTarget ? 'bg-amber-200/90 ring-4 ring-amber-400 ring-inset z-20 scale-[1.02]' : 'hover:bg-amber-50/60',
+      isHintTarget ? 'ring-3 ring-emerald-500 ring-inset animate-pulse bg-emerald-50' : '',
+      isDragHovered && isValidMoveTarget ? 'bg-amber-200/90 ring-3 sm:ring-4 ring-amber-400 ring-inset z-20' : (!isSelected ? 'hover:bg-amber-50/60' : ''),
     ]"
     @click="handleClick"
     @pointerdown="handlePointerDown"

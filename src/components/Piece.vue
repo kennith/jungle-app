@@ -32,11 +32,11 @@ const isRed = computed(() => props.piece.player === 'red');
       isRed
         ? 'border-red-600 shadow-[0_4px_10px_rgba(220,38,38,0.3)]'
         : 'border-sky-600 shadow-[0_4px_10px_rgba(2,132,199,0.3)]',
-      isSelected ? 'ring-4 ring-amber-400 scale-105 shadow-[0_0_20px_rgba(251,191,36,0.9)] z-20 -translate-y-1' : '',
-      isLastMovePiece ? 'ring-2 ring-yellow-500' : '',
-      isInTrap ? 'opacity-85 ring-2 ring-dashed ring-amber-500 animate-pulse' : '',
+      isSelected ? 'ring-2 sm:ring-3 ring-amber-400 ring-inset shadow-[0_0_12px_rgba(251,191,36,0.8)] z-10' : '',
+      isLastMovePiece ? 'ring-2 ring-yellow-500 ring-inset' : '',
+      isInTrap ? 'opacity-85 ring-2 ring-dashed ring-amber-500 animate-pulse ring-inset' : '',
       isRotated ? 'rotate-180' : '',
-      'hover:scale-105 active:scale-95'
+      'hover:scale-[1.02] active:scale-95'
     ]"
     :title="`${pieceName} (${isRed ? (language === 'zh-TW' ? '紅方' : 'Red') : (language === 'zh-TW' ? '藍方' : 'Blue')})`"
   >
