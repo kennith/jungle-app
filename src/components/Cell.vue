@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { CellInfo, Language, Piece, Position } from '../types/game';
+import { CellInfo, GameMode, Language, Piece, Position } from '../types/game';
 import { getStartingSquareWatermark } from '../constants/board';
 import PieceComponent from './Piece.vue';
 
@@ -13,6 +13,7 @@ const props = defineProps<{
   isLastMoveTo?: boolean;
   isHintTarget?: boolean;
   isRotated?: boolean;
+  mode?: GameMode;
   language: Language;
 }>();
 
@@ -30,6 +31,10 @@ const isOccupantTrapped = computed(() => {
   if (!props.piece || !isTrapCell.value) return false;
   return props.cellInfo.owner !== props.piece.player;
 });
+
+// Rotate Blue terrain elements (Den, Trap, and Watermarks) 180 deg in 2P mode
+const isBlueTerrainRotated = computed(() => props.mode === 'pvp' && props.cellInfo.owner === 'blue');
+const isBlueWatermarkRotated = computed(() => props.mode === 'pvp' && props.cellInfo.row <= 2);
 
 const isCaptureTarget = computed(() => {
   return props.isValidMoveTarget && props.piece !== null;
@@ -71,6 +76,7 @@ function handleClick() {
     <div
       v-if="isDenCell"
       class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none bg-red-50/40"
+      :class="isBlueTerrainRotated ? 'rotate-180' : ''"
     >
       <div class="absolute inset-1 border border-dashed border-red-600/70 rounded-none"></div>
       <span
@@ -87,6 +93,7 @@ function handleClick() {
     <div
       v-if="isTrapCell"
       class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none bg-red-50/30"
+      :class="isBlueTerrainRotated ? 'rotate-180' : ''"
     >
       <!-- Diagonal corner trap lines -->
       <svg class="absolute inset-0 w-full h-full text-red-600/35" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -104,6 +111,7 @@ function handleClick() {
     <div
       v-if="!piece && !isRiverCell && !isDenCell && !isTrapCell && startingWatermark"
       class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-35"
+      :class="isBlueWatermarkRotated ? 'rotate-180' : ''"
     >
       <span class="font-oriental font-black text-base sm:text-lg text-red-700">
         {{ startingWatermark.charZh }}

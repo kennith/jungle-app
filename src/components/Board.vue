@@ -79,6 +79,7 @@ function handleCellClick(pos: Position) {
               (hintMove?.to.col === c - 1 && hintMove?.to.row === r - 1)
             "
             :is-rotated="mode === 'pvp' && gameState.board[r - 1][c - 1]?.player === 'blue'"
+            :mode="mode"
             :language="language"
             @click-cell="handleCellClick"
           />
