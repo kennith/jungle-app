@@ -58,65 +58,65 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <!-- Mode Selector & Difficulty Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-      <!-- Game Mode -->
-      <div>
+    <!-- Mode Selector & Difficulty Grid (Each filling the entire row) -->
+    <div class="flex flex-col gap-2.5">
+      <!-- Game Mode (Full Row) -->
+      <div class="w-full">
         <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
           {{ t(language, 'mode') }}
         </label>
-        <div class="grid grid-cols-3 gap-1 bg-slate-200/80 p-1 rounded-lg border border-slate-300">
+        <div class="grid grid-cols-3 gap-1 bg-slate-200/80 p-1 rounded-lg border border-slate-300 w-full">
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1"
+            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
             :class="mode === 'pve' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:mode', 'pve')"
           >
-            <Bot class="w-3 h-3" />
+            <Bot class="w-3.5 h-3.5" />
             <span>AI</span>
           </button>
 
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1"
+            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
             :class="mode === 'pvp' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:mode', 'pvp')"
           >
-            <Users class="w-3 h-3" />
+            <Users class="w-3.5 h-3.5" />
             <span>2P</span>
           </button>
 
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1"
+            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
             :class="mode === 'eve' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:mode', 'eve')"
           >
-            <Play class="w-3 h-3" />
+            <Play class="w-3.5 h-3.5" />
             <span>Demo</span>
           </button>
         </div>
       </div>
 
-      <!-- AI Difficulty (visible if PvE) -->
-      <div v-if="mode === 'pve'">
+      <!-- AI Difficulty (Full Row, visible if PvE) -->
+      <div v-if="mode === 'pve'" class="w-full">
         <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
           {{ t(language, 'difficulty') }}
         </label>
-        <div class="grid grid-cols-3 gap-1 bg-slate-200/80 p-1 rounded-lg border border-slate-300">
+        <div class="grid grid-cols-3 gap-1 bg-slate-200/80 p-1 rounded-lg border border-slate-300 w-full">
           <button
-            class="px-1.5 py-1.5 rounded text-[10px] sm:text-[11px] font-bold transition-all text-center"
+            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all text-center"
             :class="difficulty === 'easy' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:difficulty', 'easy')"
           >
             {{ language === 'zh-TW' ? '初級' : 'Easy' }}
           </button>
           <button
-            class="px-1.5 py-1.5 rounded text-[10px] sm:text-[11px] font-bold transition-all text-center"
+            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all text-center"
             :class="difficulty === 'medium' ? 'bg-amber-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:difficulty', 'medium')"
           >
             {{ language === 'zh-TW' ? '中級' : 'Med' }}
           </button>
           <button
-            class="px-1.5 py-1.5 rounded text-[10px] sm:text-[11px] font-bold transition-all text-center"
+            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all text-center"
             :class="difficulty === 'hard' ? 'bg-rose-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:difficulty', 'hard')"
           >
