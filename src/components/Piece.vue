@@ -49,10 +49,10 @@ const isRed = computed(() => props.piece.player === 'red');
         {{ meta.emoji }}
       </span>
 
-      <!-- Piece Name Overlaid on the Emoji, clear of the outer border ring -->
+      <!-- Piece Name Overlaid on the Emoji with White Shadow Halo -->
       <span
         v-if="size !== 'sm'"
-        class="absolute bottom-0 left-0 sm:bottom-0.5 sm:left-0.5 text-xs sm:text-sm md:text-base font-black leading-none drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-tighter select-none font-oriental z-20"
+        class="absolute bottom-0 left-0 sm:bottom-0.5 sm:left-0.5 text-xs sm:text-sm md:text-base font-black leading-none [text-shadow:_0_0_4px_#ffffff,_0_0_2px_#ffffff,_1px_1px_1px_#ffffff,_-1px_-1px_1px_#ffffff] tracking-tighter select-none font-oriental z-20"
         :class="isRed ? 'text-red-700' : 'text-sky-800'"
       >
         {{ pieceName }}
