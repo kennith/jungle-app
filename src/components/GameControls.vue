@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Difficulty, GameMode, Language, Player } from '../types/game';
+import { GameMode, Difficulty, Player, Language } from '../types/game';
 import { t } from '../constants/translations';
 import { Undo2, Redo2, Lightbulb, Bot, Users, Play } from 'lucide-vue-next';
 
@@ -65,9 +65,9 @@ const emit = defineEmits<{
         <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
           {{ t(language, 'mode') }}
         </label>
-        <div class="grid grid-cols-3 gap-1 bg-slate-200/80 p-1 rounded-lg border border-slate-300 w-full">
+        <div class="grid grid-cols-3 gap-1 bg-slate-200/80 p-1 rounded-xs border border-slate-300 w-full">
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
+            class="px-2 py-1.5 rounded-xs text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
             :class="mode === 'pve' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:mode', 'pve')"
           >
@@ -76,7 +76,7 @@ const emit = defineEmits<{
           </button>
 
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
+            class="px-2 py-1.5 rounded-xs text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
             :class="mode === 'pvp' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:mode', 'pvp')"
           >
@@ -85,7 +85,7 @@ const emit = defineEmits<{
           </button>
 
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
+            class="px-2 py-1.5 rounded-xs text-[11px] font-bold transition-all flex items-center justify-center gap-1.5"
             :class="mode === 'eve' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:mode', 'eve')"
           >
@@ -100,23 +100,23 @@ const emit = defineEmits<{
         <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
           {{ t(language, 'difficulty') }}
         </label>
-        <div class="grid grid-cols-3 gap-1 bg-slate-200/80 p-1 rounded-lg border border-slate-300 w-full">
+        <div class="grid grid-cols-3 gap-1 bg-slate-200/80 p-1 rounded-xs border border-slate-300 w-full">
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all text-center"
+            class="px-2 py-1.5 rounded-xs text-[11px] font-bold transition-all text-center"
             :class="difficulty === 'easy' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:difficulty', 'easy')"
           >
             {{ language === 'zh-TW' ? '初級' : 'Easy' }}
           </button>
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all text-center"
+            class="px-2 py-1.5 rounded-xs text-[11px] font-bold transition-all text-center"
             :class="difficulty === 'medium' ? 'bg-amber-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:difficulty', 'medium')"
           >
             {{ language === 'zh-TW' ? '中級' : 'Med' }}
           </button>
           <button
-            class="px-2 py-1.5 rounded text-[11px] font-bold transition-all text-center"
+            class="px-2 py-1.5 rounded-xs text-[11px] font-bold transition-all text-center"
             :class="difficulty === 'hard' ? 'bg-rose-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
             @click="emit('update:difficulty', 'hard')"
           >
@@ -129,7 +129,7 @@ const emit = defineEmits<{
     <!-- Actions: Undo, Redo, Hint as Grid Rows -->
     <div class="grid grid-rows-3 gap-2 pt-1 border-t border-slate-200">
       <button
-        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold transition-all shadow-sm border border-slate-300"
+        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-xs bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold transition-all shadow-sm border border-slate-300"
         :disabled="!canUndo || isAiThinking"
         @click="emit('undo')"
       >
@@ -138,7 +138,7 @@ const emit = defineEmits<{
       </button>
 
       <button
-        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold transition-all shadow-sm border border-slate-300"
+        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-xs bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold transition-all shadow-sm border border-slate-300"
         :disabled="!canRedo || isAiThinking"
         @click="emit('redo')"
       >
@@ -147,7 +147,7 @@ const emit = defineEmits<{
       </button>
 
       <button
-        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold transition-all shadow-sm active:scale-95"
+        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-xs bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold transition-all shadow-sm active:scale-95"
         :disabled="isGameOver || isAiThinking"
         @click="emit('hint')"
       >
