@@ -325,7 +325,7 @@ onMounted(() => {
 
     <!-- Footer -->
     <footer class="w-full text-center py-3 text-slate-500 text-xs border-t border-slate-200 bg-white">
-      <span>Jungle / 鬥獸棋 &copy; 2026 • Built with Vue 3 & Vite • 繁體中文 & English</span>
+      <span>Jungle / 鬥獸棋 &copy; 2026</span>
     </footer>
 
     <!-- Modals -->
