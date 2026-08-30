@@ -56,8 +56,11 @@ function toggleLanguage() {
   localStorage.setItem('jungle_language', language.value);
 }
 
-// Watch settings to persist
-watch(mode, (newMode) => localStorage.setItem('jungle_mode', newMode));
+// Watch settings to persist and reset game on mode change
+watch(mode, (newMode) => {
+  localStorage.setItem('jungle_mode', newMode);
+  resetGame();
+});
 watch(difficulty, (newDiff) => localStorage.setItem('jungle_difficulty', newDiff));
 watch(playerSide, (newSide) => localStorage.setItem('jungle_player_side', newSide));
 
