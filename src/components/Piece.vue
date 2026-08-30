@@ -48,11 +48,11 @@ const isRed = computed(() => props.piece.player === 'red');
       {{ meta.emoji }}
     </span>
 
-    <!-- Piece Name Badge with White Background Overlaid on Top of Emoji -->
+    <!-- Piece Name Overlaid on Top of Emoji without background -->
     <span
       v-if="size !== 'sm'"
-      class="absolute bottom-0 left-0.5 sm:bottom-0.5 sm:left-1 text-[10px] sm:text-xs md:text-sm font-black leading-none px-1 py-0.5 rounded bg-white shadow-sm border select-none pointer-events-none font-oriental z-10"
-      :class="isRed ? 'text-red-700 border-red-200' : 'text-sky-800 border-sky-200'"
+      class="absolute bottom-0 left-0.5 sm:bottom-0.5 sm:left-1 text-xs sm:text-sm md:text-base font-black leading-none drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-tighter select-none pointer-events-none font-oriental z-10"
+      :class="isRed ? 'text-red-700' : 'text-sky-800'"
     >
       {{ pieceName }}
     </span>
