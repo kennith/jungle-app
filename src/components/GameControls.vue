@@ -39,8 +39,8 @@ const emit = defineEmits<{
     >
       <div class="flex items-center space-x-2">
         <span
-          class="w-3 h-3 rounded-full animate-ping"
-          :class="currentTurn === 'red' ? 'bg-red-600' : 'bg-sky-600'"
+          class="w-2.5 h-2.5 rounded-full shrink-0"
+          :class="currentTurn === 'red' ? 'bg-red-600 shadow-[0_0_8px_rgba(220,38,38,0.5)]' : 'bg-sky-600 shadow-[0_0_8px_rgba(2,132,199,0.5)]'"
         ></span>
         <span class="font-bold text-sm">
           {{ currentTurn === 'red' ? t(language, 'turnRed') : t(language, 'turnBlue') }}
