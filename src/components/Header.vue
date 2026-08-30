@@ -19,19 +19,10 @@ const emit = defineEmits<{
 <template>
   <header class="w-full max-w-6xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between border-b border-slate-200 bg-white/90 backdrop-blur-md">
     <!-- Brand Title -->
-    <div class="flex items-center space-x-3">
-      <!-- Stamp Seal Icon -->
-      <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-br from-red-600 via-red-700 to-red-900 border-2 border-red-400 shadow-sm flex items-center justify-center">
-        <span class="font-oriental font-black text-white text-lg sm:text-2xl leading-none">
-          獸
-        </span>
-      </div>
-
-      <div>
-        <h1 class="text-xl sm:text-2xl font-black font-cinzel tracking-wider text-red-700 drop-shadow-sm">
-          {{ language === 'zh-TW' ? '鬥獸棋' : 'JUNGLE' }}
-        </h1>
-      </div>
+    <div class="flex items-center">
+      <h1 class="text-xl sm:text-2xl font-black font-cinzel tracking-wider text-red-700 drop-shadow-sm">
+        {{ language === 'zh-TW' ? '鬥獸棋' : 'JUNGLE' }}
+      </h1>
     </div>
 
     <!-- Actions & Controls -->
