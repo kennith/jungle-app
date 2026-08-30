@@ -299,6 +299,7 @@ onMounted(() => {
           :game-state="gameState"
           :language="language"
           :hint-move="hintMove"
+          :mode="mode"
           @select-piece="selectPiece"
           @move-piece="handleMovePiece"
         />

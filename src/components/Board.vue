@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { GameState, Language, Position } from '../types/game';
+import { GameMode, GameState, Language, Position } from '../types/game';
 import { getCellInfo, BOARD_COLS, BOARD_ROWS } from '../constants/board';
 import CellComponent from './Cell.vue';
 
 const props = defineProps<{
   gameState: GameState;
   language: Language;
+  mode?: GameMode;
   hintMove?: { from: Position; to: Position } | null;
 }>();
 
@@ -77,6 +78,7 @@ function handleCellClick(pos: Position) {
               (hintMove?.from.col === c - 1 && hintMove?.from.row === r - 1) ||
               (hintMove?.to.col === c - 1 && hintMove?.to.row === r - 1)
             "
+            :is-rotated="mode === 'pvp' && gameState.board[r - 1][c - 1]?.player === 'blue'"
             :language="language"
             @click-cell="handleCellClick"
           />

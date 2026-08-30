@@ -12,6 +12,7 @@ const props = defineProps<{
   isLastMoveFrom?: boolean;
   isLastMoveTo?: boolean;
   isHintTarget?: boolean;
+  isRotated?: boolean;
   language: Language;
 }>();
 
@@ -116,6 +117,7 @@ function handleClick() {
         :is-selected="isSelected"
         :is-in-trap="isOccupantTrapped"
         :is-last-move-piece="isLastMoveTo"
+        :is-rotated="isRotated"
         :language="language"
       />
     </div>
