@@ -26,7 +26,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 bg-slate-50 border border-slate-200 shadow-sm rounded-xl p-3.5">
+  <div class="flex flex-col gap-3 bg-slate-50 border border-slate-200 shadow-sm rounded-xs p-3.5">
     <!-- Current Status Bar -->
     <div
       class="flex items-center justify-between px-3 py-2 rounded-lg border transition-all"

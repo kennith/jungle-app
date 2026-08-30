@@ -22,7 +22,7 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col h-full bg-slate-50 border border-slate-200 shadow-sm rounded-xl p-3">
+  <div class="flex flex-col h-full bg-slate-50 border border-slate-200 shadow-sm rounded-xs p-3">
     <div class="flex items-center justify-between pb-2 border-b border-slate-200 mb-2">
       <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 font-cinzel">
         {{ t(language, 'moveHistory') }}

@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      borderRadius: {
+        xs: '2px',
+      },
       colors: {
         jungle: {
           50: '#f0fdf4',

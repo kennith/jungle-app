@@ -19,7 +19,7 @@ const sortedCaptured = computed(() => {
 
 <template>
   <div
-    class="flex flex-col p-2.5 sm:p-3 rounded-xl border shadow-sm transition-all"
+    class="flex flex-col p-2.5 sm:p-3 rounded-xs border shadow-sm transition-all"
     :class="[
       player === 'red'
         ? 'bg-red-50/80 border-red-200 text-red-950'
