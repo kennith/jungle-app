@@ -40,22 +40,25 @@ const isRed = computed(() => props.piece.player === 'red');
     ]"
     :title="`${pieceName} (${isRed ? (language === 'zh-TW' ? '紅方' : 'Red') : (language === 'zh-TW' ? '藍方' : 'Blue')})`"
   >
-    <!-- Main Animal Emoji Identifier in Center -->
-    <span
-      class="leading-none select-none transition-transform filter drop-shadow-sm flex items-center justify-center pointer-events-none"
-      :class="size === 'sm' ? 'text-base sm:text-lg' : 'text-xl sm:text-2xl md:text-3xl pb-0.5'"
-    >
-      {{ meta.emoji }}
-    </span>
+    <!-- Central Emoji with overlaid bottom-left label -->
+    <div class="relative flex items-center justify-center select-none pointer-events-none">
+      <!-- Main Animal Emoji Identifier in Center -->
+      <span
+        class="leading-none select-none transition-transform filter drop-shadow-sm flex items-center justify-center"
+        :class="size === 'sm' ? 'text-base sm:text-lg' : 'text-2xl sm:text-3xl md:text-4xl'"
+      >
+        {{ meta.emoji }}
+      </span>
 
-    <!-- Piece Name in the Bottom Left (Red or Blue text) -->
-    <span
-      v-if="size !== 'sm'"
-      class="absolute bottom-0.5 left-1 sm:bottom-0.5 sm:left-1.5 text-[8px] sm:text-[9.5px] font-black leading-none drop-shadow-sm tracking-tighter select-none pointer-events-none"
-      :class="isRed ? 'text-red-700 font-oriental' : 'text-sky-800 font-oriental'"
-    >
-      {{ pieceName }}
-    </span>
+      <!-- Piece Name Overlaid on the Emoji's Bottom Left Corner -->
+      <span
+        v-if="size !== 'sm'"
+        class="absolute -bottom-1 -left-1 sm:-bottom-1.5 sm:-left-1.5 text-[8px] sm:text-[9.5px] font-black leading-none drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-tighter select-none font-oriental"
+        :class="isRed ? 'text-red-700' : 'text-sky-800'"
+      >
+        {{ pieceName }}
+      </span>
+    </div>
 
     <!-- Trapped warning indicator badge -->
     <div
