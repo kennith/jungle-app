@@ -43,16 +43,16 @@ const isRed = computed(() => props.piece.player === 'red');
     <!-- Main Animal Emoji Identifier in Center -->
     <span
       class="leading-none select-none transition-transform filter drop-shadow-sm flex items-center justify-center pointer-events-none"
-      :class="size === 'sm' ? 'text-base sm:text-lg' : 'text-xl sm:text-2xl md:text-3xl pb-0.5'"
+      :class="size === 'sm' ? 'text-base sm:text-lg' : 'text-2xl sm:text-3xl md:text-4xl'"
     >
       {{ meta.emoji }}
     </span>
 
-    <!-- Piece Name in the Bottom Left (Red or Blue text) -->
+    <!-- Bigger Piece Name Overlaid on Top of Emoji in Bottom Left -->
     <span
       v-if="size !== 'sm'"
-      class="absolute bottom-0.5 left-1 sm:bottom-0.5 sm:left-1.5 text-[8px] sm:text-[9.5px] font-black leading-none drop-shadow-sm tracking-tighter select-none pointer-events-none"
-      :class="isRed ? 'text-red-700 font-oriental' : 'text-sky-800 font-oriental'"
+      class="absolute bottom-0 left-0.5 sm:bottom-0.5 sm:left-1 text-xs sm:text-sm md:text-base font-black leading-none drop-shadow-[0_1px_3px_rgba(255,255,255,1)] tracking-tighter select-none pointer-events-none font-oriental z-10"
+      :class="isRed ? 'text-red-700' : 'text-sky-800'"
     >
       {{ pieceName }}
     </span>
