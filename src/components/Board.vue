@@ -47,46 +47,41 @@ function handleCellClick(pos: Position) {
 
 <template>
   <div class="relative flex flex-col items-center justify-center p-2 sm:p-4">
-    <!-- Main Board Outer Wood Frame with Sharp Square Corners -->
+    <!-- 7x9 Board Surface with Solid Filled Grid Borders and Sharp Corners -->
     <div
-      class="wood-panel p-2.5 sm:p-4 rounded-none shadow-2xl border-4 border-amber-800/80 max-w-full"
+      class="grid grid-cols-7 gap-[1.5px] sm:gap-[2px] p-[2px] sm:p-[3px] bg-red-700 border-4 sm:border-[6px] border-red-700 rounded-none shadow-2xl w-[310px] sm:w-[420px] md:w-[480px] max-w-[92vw] overflow-hidden"
     >
-      <!-- 7x9 Board Surface with Solid Filled Grid Borders and Sharp Corners -->
-      <div
-        class="grid grid-cols-7 gap-[1.5px] sm:gap-[2px] p-[2px] sm:p-[3px] bg-red-700 border-4 sm:border-[5px] border-red-700 rounded-none shadow-xl w-[300px] sm:w-[420px] md:w-[470px] max-w-[90vw] overflow-hidden"
-      >
-        <template v-for="r in BOARD_ROWS" :key="r">
-          <template v-for="c in BOARD_COLS" :key="c">
-            <CellComponent
-              :cell-info="getCellInfo(c - 1, r - 1)"
-              :piece="gameState.board[r - 1][c - 1]"
-              :is-selected="
-                gameState.selectedPosition?.col === c - 1 &&
-                gameState.selectedPosition?.row === r - 1
-              "
-              :is-valid-move-target="
-                gameState.validMoves.some(
-                  m => m.col === c - 1 && m.row === r - 1
-                )
-              "
-              :is-last-move-from="
-                gameState.lastMove?.from.col === c - 1 &&
-                gameState.lastMove?.from.row === r - 1
-              "
-              :is-last-move-to="
-                gameState.lastMove?.to.col === c - 1 &&
-                gameState.lastMove?.to.row === r - 1
-              "
-              :is-hint-target="
-                (hintMove?.from.col === c - 1 && hintMove?.from.row === r - 1) ||
-                (hintMove?.to.col === c - 1 && hintMove?.to.row === r - 1)
-              "
-              :language="language"
-              @click-cell="handleCellClick"
-            />
-          </template>
+      <template v-for="r in BOARD_ROWS" :key="r">
+        <template v-for="c in BOARD_COLS" :key="c">
+          <CellComponent
+            :cell-info="getCellInfo(c - 1, r - 1)"
+            :piece="gameState.board[r - 1][c - 1]"
+            :is-selected="
+              gameState.selectedPosition?.col === c - 1 &&
+              gameState.selectedPosition?.row === r - 1
+            "
+            :is-valid-move-target="
+              gameState.validMoves.some(
+                m => m.col === c - 1 && m.row === r - 1
+              )
+            "
+            :is-last-move-from="
+              gameState.lastMove?.from.col === c - 1 &&
+              gameState.lastMove?.from.row === r - 1
+            "
+            :is-last-move-to="
+              gameState.lastMove?.to.col === c - 1 &&
+              gameState.lastMove?.to.row === r - 1
+            "
+            :is-hint-target="
+              (hintMove?.from.col === c - 1 && hintMove?.from.row === r - 1) ||
+              (hintMove?.to.col === c - 1 && hintMove?.to.row === r - 1)
+            "
+            :language="language"
+            @click-cell="handleCellClick"
+          />
         </template>
-      </div>
+      </template>
     </div>
   </div>
 </template>
