@@ -25,12 +25,12 @@ const isRed = computed(() => props.piece.player === 'red');
   <div
     class="relative flex items-center justify-center rounded-full select-none cursor-pointer transition-all duration-200 overflow-hidden"
     :class="[
-      size === 'sm' ? 'w-8 h-8' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square',
+      size === 'sm' ? 'w-8 h-8 border-[3px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[8px]',
       // Wood background with Red or Blue border
       'bg-gradient-to-b from-[#fbf4e6] via-[#eedec7] to-[#dfcda9] shadow-[0_3px_8px_rgba(0,0,0,0.35)]',
       isRed
-        ? 'border-[2.5px] sm:border-[3px] border-red-600 shadow-[0_4px_10px_rgba(220,38,38,0.35)]'
-        : 'border-[2.5px] sm:border-[3px] border-sky-600 shadow-[0_4px_10px_rgba(2,132,199,0.35)]',
+        ? 'border-red-600 shadow-[0_4px_10px_rgba(220,38,38,0.35)]'
+        : 'border-sky-600 shadow-[0_4px_10px_rgba(2,132,199,0.35)]',
       isSelected ? 'ring-4 ring-amber-400 scale-105 shadow-[0_0_20px_rgba(251,191,36,0.9)] z-20 -translate-y-1' : '',
       isLastMovePiece ? 'ring-2 ring-yellow-500' : '',
       isInTrap ? 'opacity-85 ring-2 ring-dashed ring-amber-500 animate-pulse' : '',
@@ -41,7 +41,7 @@ const isRed = computed(() => props.piece.player === 'red');
     <!-- Main Animal Emoji Identifier in Center -->
     <span
       class="leading-none select-none transition-transform filter drop-shadow-sm flex items-center justify-center pointer-events-none"
-      :class="size === 'sm' ? 'text-base sm:text-lg' : 'text-xl sm:text-2xl md:text-3xl pb-1'"
+      :class="size === 'sm' ? 'text-base sm:text-lg' : 'text-xl sm:text-2xl md:text-3xl pb-0.5'"
     >
       {{ meta.emoji }}
     </span>
@@ -49,7 +49,7 @@ const isRed = computed(() => props.piece.player === 'red');
     <!-- Piece Name in the Bottom Left (Red or Blue text) -->
     <span
       v-if="size !== 'sm'"
-      class="absolute bottom-0.5 left-1.5 sm:bottom-1 sm:left-2 text-[8px] sm:text-[9.5px] font-black leading-none drop-shadow-sm tracking-tighter select-none pointer-events-none"
+      class="absolute bottom-0 left-0.5 sm:bottom-0.5 sm:left-1 text-[7.5px] sm:text-[9px] font-black leading-none drop-shadow-sm tracking-tighter select-none pointer-events-none"
       :class="isRed ? 'text-red-700 font-oriental' : 'text-sky-800 font-oriental'"
     >
       {{ pieceName }}
