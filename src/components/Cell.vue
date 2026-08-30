@@ -13,12 +13,15 @@ const props = defineProps<{
   isLastMoveTo?: boolean;
   isHintTarget?: boolean;
   isRotated?: boolean;
+  isDraggingOrigin?: boolean;
+  isDragHovered?: boolean;
   mode?: GameMode;
   language: Language;
 }>();
 
 const emit = defineEmits<{
   (e: 'click-cell', pos: Position): void;
+  (e: 'pointerdown-cell', event: PointerEvent, pos: Position): void;
 }>();
 
 const isRiverCell = computed(() => props.cellInfo.terrain === 'river');
@@ -45,18 +48,26 @@ const isCaptureTarget = computed(() => {
 function handleClick() {
   emit('click-cell', { col: props.cellInfo.col, row: props.cellInfo.row });
 }
+
+function handlePointerDown(e: PointerEvent) {
+  emit('pointerdown-cell', e, { col: props.cellInfo.col, row: props.cellInfo.row });
+}
 </script>
 
 <template>
   <div
-    class="relative aspect-square w-full flex items-center justify-center bg-white transition-colors duration-150 cursor-pointer overflow-hidden group select-none"
+    :data-cell-col="cellInfo.col"
+    :data-cell-row="cellInfo.row"
+    class="relative aspect-square w-full flex items-center justify-center bg-white transition-colors duration-150 cursor-pointer overflow-hidden group select-none touch-none"
     :class="[
       // Move Highlights
       isLastMoveFrom ? 'bg-amber-100/90 ring-2 ring-amber-400 ring-inset' : '',
       isLastMoveTo ? 'bg-amber-200/95 ring-3 ring-amber-500 ring-inset' : '',
-      isHintTarget ? 'ring-4 ring-emerald-500 animate-pulse bg-emerald-50' : 'hover:bg-amber-50/60',
+      isHintTarget ? 'ring-4 ring-emerald-500 animate-pulse bg-emerald-50' : '',
+      isDragHovered && isValidMoveTarget ? 'bg-amber-200/90 ring-4 ring-amber-400 ring-inset z-20 scale-[1.02]' : 'hover:bg-amber-50/60',
     ]"
     @click="handleClick"
+    @pointerdown="handlePointerDown"
   >
     <!-- River Wave Texture & Red Label (matching Dou_shou_qi_board.png) -->
     <div
@@ -122,7 +133,11 @@ function handleClick() {
     </div>
 
     <!-- Occupying Piece -->
-    <div v-if="piece" class="w-full h-full p-0.5 sm:p-1 flex items-center justify-center z-10">
+    <div
+      v-if="piece"
+      class="w-full h-full p-0.5 sm:p-1 flex items-center justify-center z-10 transition-opacity duration-150"
+      :class="isDraggingOrigin ? 'opacity-25' : 'opacity-100'"
+    >
       <PieceComponent
         :piece="piece"
         :is-selected="isSelected"
