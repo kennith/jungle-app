@@ -28,22 +28,22 @@ const animalList = [
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
     @click.self="emit('close')"
   >
-    <div class="relative w-full max-w-2xl max-h-[85vh] bg-slate-900 border border-amber-500/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+    <div class="relative w-full max-w-2xl max-h-[85vh] bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col text-slate-800">
       <!-- Header -->
-      <div class="flex items-center justify-between px-5 py-4 border-b border-slate-800 bg-slate-950/80">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50">
         <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center">
-            <span class="font-oriental font-bold text-amber-400 text-lg">規</span>
+          <div class="w-8 h-8 rounded-lg bg-red-100 border border-red-200 flex items-center justify-center">
+            <span class="font-oriental font-bold text-red-700 text-lg">規</span>
           </div>
-          <h2 class="text-lg sm:text-xl font-bold text-amber-400 font-cinzel">
+          <h2 class="text-lg sm:text-xl font-bold text-red-700 font-cinzel">
             {{ t(language, 'rulesTitle') }}
           </h2>
         </div>
         <button
-          class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
           @click="emit('close')"
         >
           <X class="w-5 h-5" />
@@ -51,25 +51,25 @@ const animalList = [
       </div>
 
       <!-- Scrollable Body -->
-      <div class="flex-1 overflow-y-auto p-5 space-y-6 text-sm text-slate-300">
+      <div class="flex-1 overflow-y-auto p-5 space-y-6 text-sm text-slate-700">
         <!-- Objective -->
-        <section class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
-          <div class="flex items-center space-x-2 text-amber-400 font-bold mb-2">
+        <section class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="flex items-center space-x-2 text-red-700 font-bold mb-2">
             <Trophy class="w-4 h-4" />
             <h3 class="text-base">{{ t(language, 'rulesObjectiveHeading') }}</h3>
           </div>
-          <p class="leading-relaxed text-slate-300">
+          <p class="leading-relaxed text-slate-600">
             {{ t(language, 'rulesObjectiveText') }}
           </p>
         </section>
 
         <!-- Animal Ranks -->
-        <section class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
-          <div class="flex items-center space-x-2 text-amber-400 font-bold mb-3">
+        <section class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="flex items-center space-x-2 text-red-700 font-bold mb-3">
             <Shield class="w-4 h-4" />
             <h3 class="text-base">{{ t(language, 'rulesHierarchyHeading') }}</h3>
           </div>
-          <p class="text-xs text-slate-400 mb-3">
+          <p class="text-xs text-slate-500 mb-3">
             {{ t(language, 'rulesHierarchyDesc') }}
           </p>
 
@@ -77,22 +77,22 @@ const animalList = [
             <div
               v-for="animal in animalList"
               :key="animal.type"
-              class="flex items-center space-x-3 p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-amber-500/30 transition-colors"
+              class="flex items-center space-x-3 p-2 rounded-lg bg-white border border-slate-200 shadow-sm hover:border-red-400 transition-colors"
             >
               <!-- Rank token badge -->
-              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 text-slate-950 font-black flex items-center justify-center text-lg shadow shrink-0">
+              <div class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 text-slate-900 font-black flex items-center justify-center text-lg shadow-sm shrink-0">
                 {{ animal.emoji }}
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center space-x-2">
-                  <span class="font-bold text-white">
+                  <span class="font-bold text-slate-900">
                     {{ language === 'zh-TW' ? animal.nameZh : animal.nameEn }}
                   </span>
-                  <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">
+                  <span class="text-[10px] px-1.5 py-0.2 rounded bg-red-50 text-red-700 border border-red-200 font-bold">
                     {{ t(language, 'rank') }} {{ animal.rank }}
                   </span>
                 </div>
-                <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">
+                <p class="text-[11px] text-slate-500 line-clamp-2 mt-0.5">
                   {{ language === 'zh-TW' ? animal.descriptionZh : animal.descriptionEn }}
                 </p>
               </div>
@@ -101,26 +101,26 @@ const animalList = [
         </section>
 
         <!-- Special Terrain & Powers -->
-        <section class="bg-slate-950/50 p-4 rounded-xl border border-slate-800 space-y-3">
-          <div class="flex items-center space-x-2 text-amber-400 font-bold">
+        <section class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <div class="flex items-center space-x-2 text-red-700 font-bold">
             <Zap class="w-4 h-4" />
             <h3 class="text-base">{{ t(language, 'rulesSpecialRulesHeading') }}</h3>
           </div>
 
-          <div class="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-            <div class="p-2.5 rounded-lg bg-sky-950/30 border border-sky-800/40">
+          <div class="space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <div class="p-2.5 rounded-lg bg-sky-50 border border-sky-200">
               <p>{{ t(language, 'rulesRatSpecial') }}</p>
             </div>
 
-            <div class="p-2.5 rounded-lg bg-indigo-950/30 border border-indigo-800/40">
+            <div class="p-2.5 rounded-lg bg-indigo-50 border border-indigo-200">
               <p>{{ t(language, 'rulesJumpSpecial') }}</p>
             </div>
 
-            <div class="p-2.5 rounded-lg bg-amber-950/30 border border-amber-800/40">
+            <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200">
               <p>{{ t(language, 'rulesTrapSpecial') }}</p>
             </div>
 
-            <div class="p-2.5 rounded-lg bg-rose-950/30 border border-rose-800/40">
+            <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
               <p>{{ t(language, 'rulesDenSpecial') }}</p>
             </div>
           </div>
@@ -128,9 +128,9 @@ const animalList = [
       </div>
 
       <!-- Footer -->
-      <div class="px-5 py-3 border-t border-slate-800 bg-slate-950/80 flex justify-end">
+      <div class="px-5 py-3 border-t border-slate-200 bg-slate-50 flex justify-end">
         <button
-          class="px-5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow transition-colors"
+          class="px-5 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow transition-colors"
           @click="emit('close')"
         >
           {{ t(language, 'close') }}

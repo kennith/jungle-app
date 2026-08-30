@@ -253,7 +253,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col justify-between text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950">
+  <div class="min-h-screen flex flex-col justify-between bg-white text-slate-800 antialiased selection:bg-red-500 selection:text-white">
     <!-- Top Navigation Header -->
     <HeaderComponent
       :language="language"
@@ -323,7 +323,7 @@ onMounted(() => {
     </main>
 
     <!-- Footer -->
-    <footer class="w-full text-center py-3 text-slate-500 text-xs border-t border-slate-900">
+    <footer class="w-full text-center py-3 text-slate-500 text-xs border-t border-slate-200 bg-white">
       <span>Jungle / 鬥獸棋 &copy; 2026 • Built with Vue 3 & Vite • 繁體中文 & English</span>
     </footer>
 

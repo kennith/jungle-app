@@ -19,18 +19,20 @@ const sortedCaptured = computed(() => {
 
 <template>
   <div
-    class="flex flex-col p-2.5 sm:p-3 rounded-xl border backdrop-blur-md transition-all"
+    class="flex flex-col p-2.5 sm:p-3 rounded-xl border shadow-sm transition-all"
     :class="[
       player === 'red'
-        ? 'bg-red-950/30 border-red-800/40 text-red-100'
-        : 'bg-blue-950/30 border-blue-800/40 text-blue-100'
+        ? 'bg-red-50/80 border-red-200 text-red-950'
+        : 'bg-sky-50/80 border-sky-200 text-sky-950'
     ]"
   >
     <div class="flex items-center justify-between mb-2">
-      <span class="text-xs font-bold uppercase tracking-wider opacity-80 font-cinzel">
+      <span class="text-xs font-bold uppercase tracking-wider font-cinzel"
+        :class="player === 'red' ? 'text-red-900' : 'text-sky-900'"
+      >
         {{ title }}
       </span>
-      <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-black/40 border border-white/10">
+      <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-white border border-slate-200 shadow-sm text-slate-700">
         {{ capturedPieces.length }} / 8
       </span>
     </div>
@@ -39,7 +41,7 @@ const sortedCaptured = computed(() => {
     <div class="flex flex-wrap gap-1.5 min-h-[36px] items-center">
       <div
         v-if="sortedCaptured.length === 0"
-        class="text-xs text-slate-500 italic py-1"
+        class="text-xs text-slate-400 italic py-1"
       >
         {{ language === 'zh-TW' ? '暫無被吃棋子' : 'None captured' }}
       </div>

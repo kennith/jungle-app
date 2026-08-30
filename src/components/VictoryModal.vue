@@ -62,23 +62,17 @@ function getWinReasonMessage(): string {
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fade-in"
   >
-    <div class="relative w-full max-w-md bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-amber-500/50 rounded-2xl shadow-2xl p-6 text-center overflow-hidden">
-      <!-- Background Ambient Glow -->
-      <div
-        class="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full blur-3xl opacity-40 pointer-events-none"
-        :class="winner === 'draw' ? 'bg-slate-500' : isHumanWinner() ? 'bg-amber-400' : 'bg-rose-500'"
-      ></div>
-
+    <div class="relative w-full max-w-md bg-white border border-slate-200 rounded-2xl shadow-2xl p-6 text-center overflow-hidden text-slate-800">
       <!-- Icon Badge -->
-      <div class="relative mx-auto w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg mb-4"
+      <div class="relative mx-auto w-16 h-16 rounded-2xl flex items-center justify-center shadow-md mb-4"
         :class="[
           winner === 'draw'
-            ? 'bg-slate-800 border border-slate-600 text-slate-300'
+            ? 'bg-slate-100 border border-slate-300 text-slate-600'
             : isHumanWinner()
-              ? 'bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-amber-200 text-slate-950 shadow-[0_0_25px_rgba(251,191,36,0.6)]'
-              : 'bg-gradient-to-br from-rose-700 to-red-950 border-2 border-rose-400 text-rose-100 shadow-[0_0_25px_rgba(225,29,72,0.5)]'
+              ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white shadow-[0_0_20px_rgba(251,191,36,0.5)]'
+              : 'bg-gradient-to-br from-rose-500 to-red-700 text-white shadow-[0_0_20px_rgba(225,29,72,0.4)]'
         ]"
       >
         <Sparkles v-if="winner !== 'draw' && isHumanWinner()" class="w-8 h-8 animate-bounce" />
@@ -91,10 +85,10 @@ function getWinReasonMessage(): string {
         class="text-2xl sm:text-3xl font-black font-cinzel tracking-wide mb-1"
         :class="[
           winner === 'draw'
-            ? 'text-slate-300'
+            ? 'text-slate-700'
             : winner === 'red'
-              ? 'text-rose-400'
-              : 'text-sky-400'
+              ? 'text-rose-700'
+              : 'text-sky-700'
         ]"
       >
         <template v-if="winner === 'draw'">
@@ -109,26 +103,26 @@ function getWinReasonMessage(): string {
       </h2>
 
       <!-- Subtitle description -->
-      <p class="text-sm font-medium text-slate-300 mb-4">
+      <p class="text-sm font-medium text-slate-600 mb-4">
         {{ winner === 'red' ? (language === 'zh-TW' ? '紅方' : 'Red') : (language === 'zh-TW' ? '藍方' : 'Blue') }} {{ getWinReasonMessage() }}
       </p>
 
       <!-- Stats Box -->
-      <div class="bg-slate-950/70 rounded-xl p-3.5 border border-slate-800 mb-6 flex justify-around items-center">
+      <div class="bg-slate-50 rounded-xl p-3.5 border border-slate-200 mb-6 flex justify-around items-center">
         <div>
-          <span class="block text-[11px] font-semibold text-slate-400 uppercase">
+          <span class="block text-[11px] font-semibold text-slate-500 uppercase">
             {{ t(language, 'totalMoves') }}
           </span>
-          <span class="text-lg font-black text-amber-300 font-mono">
+          <span class="text-lg font-black text-slate-900 font-mono">
             {{ moveCount }}
           </span>
         </div>
-        <div class="h-8 w-px bg-slate-800"></div>
+        <div class="h-8 w-px bg-slate-200"></div>
         <div>
-          <span class="block text-[11px] font-semibold text-slate-400 uppercase">
+          <span class="block text-[11px] font-semibold text-slate-500 uppercase">
             {{ t(language, 'mode') }}
           </span>
-          <span class="text-xs font-bold text-slate-200">
+          <span class="text-xs font-bold text-slate-700">
             {{ mode === 'pve' ? t(language, 'modePvE') : mode === 'pvp' ? t(language, 'modePvP') : t(language, 'modeEvE') }}
           </span>
         </div>
@@ -137,7 +131,7 @@ function getWinReasonMessage(): string {
       <!-- Action Buttons -->
       <div class="grid grid-cols-2 gap-3">
         <button
-          class="flex items-center justify-center space-x-1.5 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-colors border border-slate-700 shadow"
+          class="flex items-center justify-center space-x-1.5 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors border border-slate-300 shadow-sm"
           @click="emit('close')"
         >
           <Eye class="w-4 h-4" />
@@ -145,7 +139,7 @@ function getWinReasonMessage(): string {
         </button>
 
         <button
-          class="flex items-center justify-center space-x-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg transition-all active:scale-95"
+          class="flex items-center justify-center space-x-1.5 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-md transition-all active:scale-95"
           @click="emit('play-again')"
         >
           <RotateCcw class="w-4 h-4" />
