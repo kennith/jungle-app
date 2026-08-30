@@ -41,12 +41,12 @@ function handleClick() {
 
 <template>
   <div
-    class="relative aspect-square w-full flex items-center justify-center bg-[#fffefa] transition-colors duration-150 cursor-pointer overflow-hidden group select-none"
+    class="relative aspect-square w-full flex items-center justify-center bg-white transition-colors duration-150 cursor-pointer overflow-hidden group select-none"
     :class="[
       // Move Highlights
       isLastMoveFrom ? 'bg-amber-100/90 ring-2 ring-amber-400 ring-inset' : '',
       isLastMoveTo ? 'bg-amber-200/95 ring-3 ring-amber-500 ring-inset' : '',
-      isHintTarget ? 'ring-4 ring-emerald-500 animate-pulse bg-emerald-50' : 'hover:bg-[#fff9ee]',
+      isHintTarget ? 'ring-4 ring-emerald-500 animate-pulse bg-emerald-50' : 'hover:bg-amber-50/60',
     ]"
     @click="handleClick"
   >

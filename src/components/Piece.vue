@@ -26,8 +26,8 @@ const isRed = computed(() => props.piece.player === 'red');
     class="relative flex items-center justify-center rounded-full select-none cursor-pointer transition-all duration-200 overflow-hidden"
     :class="[
       size === 'sm' ? 'w-8 h-8 border-[2.5px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[5px]',
-      // Wood background with Red or Blue border
-      'bg-gradient-to-b from-[#fbf4e6] via-[#eedec7] to-[#dfcda9] shadow-[0_3px_8px_rgba(0,0,0,0.35)]',
+      // White background with Red or Blue border
+      'bg-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]',
       isRed
         ? 'border-red-600 shadow-[0_4px_10px_rgba(220,38,38,0.35)]'
         : 'border-sky-600 shadow-[0_4px_10px_rgba(2,132,199,0.35)]',
