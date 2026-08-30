@@ -14,6 +14,7 @@ import MoveHistoryComponent from './components/MoveHistory.vue';
 import GameControlsComponent from './components/GameControls.vue';
 import RulebookModal from './components/RulebookModal.vue';
 import VictoryModal from './components/VictoryModal.vue';
+import ConfirmModal from './components/ConfirmModal.vue';
 
 // --- State ---
 const language = ref<Language>(
@@ -32,6 +33,8 @@ const playerSide = ref<Player>(
 
 const isRulebookOpen = ref<boolean>(false);
 const isVictoryModalOpen = ref<boolean>(false);
+const isConfirmModalOpen = ref<boolean>(false);
+let pendingResetAction: (() => void) | null = null;
 
 const gameState = reactive<GameState>(createInitialGameState());
 
@@ -42,11 +45,11 @@ const redoStack = ref<GameState[]>([]);
 // Hint move
 const hintMove = ref<{ from: Position; to: Position } | null>(null);
 
-// --- Computed ---
+// Computed getters
 const canUndo = computed(() => undoStack.value.length > 0 && !gameState.isAiThinking);
 const canRedo = computed(() => redoStack.value.length > 0 && !gameState.isAiThinking);
 
-// --- Sound Controls ---
+// --- Header Actions ---
 function toggleSound() {
   isMuted.value = soundEffects.toggleMute();
 }
@@ -56,16 +59,12 @@ function toggleLanguage() {
   localStorage.setItem('jungle_language', language.value);
 }
 
-// Watch settings to persist and reset game on mode change
-watch(mode, (newMode) => {
-  localStorage.setItem('jungle_mode', newMode);
-  resetGame();
-});
+// Watch settings to persist
 watch(difficulty, (newDiff) => localStorage.setItem('jungle_difficulty', newDiff));
 watch(playerSide, (newSide) => localStorage.setItem('jungle_player_side', newSide));
 
 // --- Game Logic ---
-function resetGame() {
+function performReset() {
   const initial = createInitialGameState();
   Object.assign(gameState, initial);
   undoStack.value = [];
@@ -75,6 +74,44 @@ function resetGame() {
 
   // If computer plays first (e.g. human is Blue or in demo mode)
   checkTriggerAiTurn();
+}
+
+function requestReset(action?: () => void) {
+  // If match is active in progress, ask for confirmation
+  if (gameState.moveHistory.length > 0 && !gameState.isGameOver) {
+    pendingResetAction = action || performReset;
+    isConfirmModalOpen.value = true;
+  } else {
+    if (action) {
+      action();
+    } else {
+      performReset();
+    }
+  }
+}
+
+function onConfirmReset() {
+  isConfirmModalOpen.value = false;
+  if (pendingResetAction) {
+    pendingResetAction();
+    pendingResetAction = null;
+  } else {
+    performReset();
+  }
+}
+
+function onCancelReset() {
+  isConfirmModalOpen.value = false;
+  pendingResetAction = null;
+}
+
+function handleModeChange(newMode: GameMode) {
+  if (newMode === mode.value) return;
+  requestReset(() => {
+    mode.value = newMode;
+    localStorage.setItem('jungle_mode', newMode);
+    performReset();
+  });
 }
 
 function selectPiece(pos: Position) {
@@ -112,18 +149,18 @@ async function handleMovePiece(from: Position, to: Position) {
   Object.assign(gameState, nextState);
   hintMove.value = null;
 
-  // Play appropriate sound
+  // Play audio effects based on move type
   if (executedMove.isJump) {
     soundEffects.playJump();
   } else if (executedMove.capturedPiece) {
     soundEffects.playCapture();
-  } else if (isInOpponentTrap(to, executedMove.piece.player)) {
+  } else if (isInOpponentTrap(executedMove.to, executedMove.piece.player)) {
     soundEffects.playTrap();
   } else {
     soundEffects.playMove();
   }
 
-  // Check victory / game over
+  // Check Game Over
   if (gameState.isGameOver) {
     if (gameState.winner === playerSide.value || mode.value === 'pvp') {
       soundEffects.playVictory();
@@ -134,7 +171,7 @@ async function handleMovePiece(from: Position, to: Position) {
     return;
   }
 
-  // Trigger AI if applicable
+  // Trigger AI if it's Computer's turn
   checkTriggerAiTurn();
 }
 
@@ -185,7 +222,7 @@ async function checkTriggerAiTurn() {
           }
           isVictoryModalOpen.value = true;
         } else if (mode.value === 'eve') {
-          // In Demo mode, loop AI turns with delay
+          // Continue EvE chain
           setTimeout(() => {
             checkTriggerAiTurn();
           }, 600);
@@ -197,18 +234,20 @@ async function checkTriggerAiTurn() {
   }
 }
 
+// --- Controls Actions ---
 function handleUndo() {
   if (!canUndo.value || gameState.isAiThinking) return;
 
-  // In PvE mode, undo 2 steps (AI move + human move) unless it's only 1 move
   if (mode.value === 'pve' && undoStack.value.length >= 2) {
+    // In PvE, undo both AI and Player moves to return to player's turn
     redoStack.value.push(JSON.parse(JSON.stringify(gameState)));
-    undoStack.value.pop(); // Pop AI move state
-    const prevState = undoStack.value.pop();
-    if (prevState) {
-      Object.assign(gameState, prevState);
+    undoStack.value.pop(); // Remove AI move
+    const prevPlayerState = undoStack.value.pop();
+    if (prevPlayerState) {
+      Object.assign(gameState, prevPlayerState);
     }
   } else {
+    // Single move undo
     redoStack.value.push(JSON.parse(JSON.stringify(gameState)));
     const prevState = undoStack.value.pop();
     if (prevState) {
@@ -235,17 +274,11 @@ function handleRedo() {
 async function handleHint() {
   if (gameState.isGameOver || gameState.isAiThinking) return;
 
-  const bestMove = await getBestAiMove(
-    gameState.board,
-    gameState.currentTurn,
-    'hard',
-    gameState.lastMove
-  );
-
-  if (bestMove) {
-    hintMove.value = { from: bestMove.from, to: bestMove.to };
-    gameState.selectedPosition = bestMove.from;
-    gameState.validMoves = getValidMovesForPiece(gameState.board, bestMove.from);
+  const best = await getBestAiMove(gameState.board, gameState.currentTurn, 'hard', gameState.lastMove);
+  if (best) {
+    hintMove.value = { from: best.from, to: best.to };
+    gameState.selectedPosition = best.from;
+    gameState.validMoves = getValidMovesForPiece(gameState.board, best.from);
     soundEffects.playSelect();
   }
 }
@@ -257,14 +290,14 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen flex flex-col justify-between bg-white text-slate-800 antialiased selection:bg-red-500 selection:text-white">
-    <!-- Top Navigation Header -->
+    <!-- Navigation Bar -->
     <HeaderComponent
       :language="language"
       :is-muted="isMuted"
       @toggle-language="toggleLanguage"
       @toggle-sound="toggleSound"
       @open-rules="isRulebookOpen = true"
-      @restart-game="resetGame"
+      @restart-game="requestReset(() => performReset())"
     />
 
     <!-- Main Game Arena -->
@@ -281,7 +314,7 @@ onMounted(() => {
 
         <!-- Game Controls & Settings -->
         <GameControlsComponent
-          v-model:mode="mode"
+          :mode="mode"
           v-model:difficulty="difficulty"
           v-model:playerSide="playerSide"
           :current-turn="gameState.currentTurn"
@@ -290,6 +323,7 @@ onMounted(() => {
           :can-redo="canRedo"
           :language="language"
           :is-game-over="gameState.isGameOver"
+          @update:mode="handleModeChange"
           @undo="handleUndo"
           @redo="handleRedo"
           @hint="handleHint"
@@ -346,8 +380,16 @@ onMounted(() => {
       :mode="mode"
       :move-count="gameState.moveHistory.length"
       :language="language"
-      @play-again="resetGame"
+      @play-again="performReset"
       @close="isVictoryModalOpen = false"
+    />
+
+    <!-- Reset Confirmation Modal -->
+    <ConfirmModal
+      :is-open="isConfirmModalOpen"
+      :language="language"
+      @confirm="onConfirmReset"
+      @cancel="onCancelReset"
     />
   </div>
 </template>

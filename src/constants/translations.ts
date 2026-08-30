@@ -88,6 +88,10 @@ export const TRANSLATIONS = {
     rulesJumpSpecial: '• Lion (獅, Rank 7) & Tiger (虎, Rank 6): Can jump over the river horizontally or vertically in a straight line, capturing any valid enemy piece on the landing square. If a Rat (friend or foe) is swimming in the intervening water path, the jump is blocked.',
     rulesTrapSpecial: '• Traps (陷阱): If an animal enters an OPPONENT’s trap, its rank drops to 0 while inside. Any defending piece can capture it! Animals are safe in their own traps.',
     rulesDenSpecial: '• Dens (獸穴): You CANNOT enter your own Den. Entering the opponent’s Den wins the game immediately!',
+    confirmResetTitle: 'Restart Game?',
+    confirmResetMessage: 'Are you sure you want to start a new game? Current game progress will be lost.',
+    confirm: 'Restart',
+    cancel: 'Cancel',
     close: 'Close',
   },
 
@@ -178,6 +182,10 @@ export const TRANSLATIONS = {
     rulesJumpSpecial: '• 獅子（獅，7級）與老虎（虎，6級）：可橫向或縱向直線跳過小河，並吃掉對岸同級或低級的敵方動物。若小河中有老鼠（無論敵我）擋道，則不可跳河。',
     rulesTrapSpecial: '• 陷阱（陷阱）：當動物走入「敵方」的陷阱時，該動物等級暫時降為0級，任何敵方棋子皆可將其吃掉！動物在己方陷阱中不受影響。',
     rulesDenSpecial: '• 獸穴（獸穴）：不可進入己方獸穴。進入敵方獸穴立即獲勝！',
+    confirmResetTitle: '重新開始對局？',
+    confirmResetMessage: '確定要重新開始遊戲嗎？當前的對局進度將會遺失。',
+    confirm: '重新開始',
+    cancel: '取消',
     close: '關閉',
   }
 } as const;
