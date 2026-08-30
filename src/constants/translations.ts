@@ -4,7 +4,6 @@ export const TRANSLATIONS = {
   en: {
     appTitle: 'Jungle Board Game',
     subtitle: 'Dou Shou Qi / Animal Chess',
-    tagline: 'An ancient game of wits and jungle instincts',
 
     // Nav & Controls
     newGame: 'New Game',
@@ -95,7 +94,6 @@ export const TRANSLATIONS = {
   'zh-TW': {
     appTitle: '鬥獸棋',
     subtitle: 'Dou Shou Qi / Jungle Board Game',
-    tagline: '經典傳統智力棋盤遊戲，縱橫叢林，智破獸穴',
 
     // Nav & Controls
     newGame: '開新局',
