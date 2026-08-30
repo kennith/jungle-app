@@ -24,7 +24,7 @@ const isRed = computed(() => props.piece.player === 'red');
 
 <template>
   <div
-    class="relative flex items-center justify-center rounded-full select-none cursor-pointer transition-all duration-200 overflow-hidden"
+    class="relative flex items-center justify-center rounded-full select-none cursor-pointer transition-all duration-200"
     :class="[
       size === 'sm' ? 'w-8 h-8 border-[2.5px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[4px] sm:border-[5px]',
       // Solid white background with Red or Blue border
@@ -49,10 +49,10 @@ const isRed = computed(() => props.piece.player === 'red');
         {{ meta.emoji }}
       </span>
 
-      <!-- Piece Name Overlaid directly on the Emoji across all screen widths -->
+      <!-- Piece Name Overlaid on the Emoji, clear of the outer border ring -->
       <span
         v-if="size !== 'sm'"
-        class="absolute -bottom-0.5 -left-1 sm:-bottom-1 sm:-left-1.5 text-[11px] sm:text-sm md:text-base font-black leading-none drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-tighter select-none font-oriental z-10"
+        class="absolute bottom-0 left-0 sm:bottom-0.5 sm:left-0.5 text-xs sm:text-sm md:text-base font-black leading-none drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-tighter select-none font-oriental z-20"
         :class="isRed ? 'text-red-700' : 'text-sky-800'"
       >
         {{ pieceName }}
@@ -62,7 +62,7 @@ const isRed = computed(() => props.piece.player === 'red');
     <!-- Trapped warning indicator badge -->
     <div
       v-if="isInTrap"
-      class="absolute -top-1 -right-1 bg-amber-500 text-amber-950 text-[9px] font-extrabold px-1.5 py-0.2 rounded-full border border-amber-300 shadow animate-bounce"
+      class="absolute -top-1 -right-1 bg-amber-500 text-amber-950 text-[9px] font-extrabold px-1.5 py-0.2 rounded-full border border-amber-300 shadow animate-bounce z-30"
     >
       {{ language === 'zh-TW' ? '陷' : 'TRAP' }}
     </div>
