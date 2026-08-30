@@ -27,11 +27,11 @@ const isRed = computed(() => props.piece.player === 'red');
     class="relative flex items-center justify-center rounded-full select-none cursor-pointer transition-all duration-200 overflow-hidden"
     :class="[
       size === 'sm' ? 'w-8 h-8 border-[2.5px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[4px] sm:border-[5px]',
-      // Transparent background with Red or Blue border
-      'bg-transparent',
+      // Solid white background with Red or Blue border
+      'bg-white shadow-[0_2px_6px_rgba(0,0,0,0.2)]',
       isRed
-        ? 'border-red-600 shadow-[0_4px_10px_rgba(220,38,38,0.25)]'
-        : 'border-sky-600 shadow-[0_4px_10px_rgba(2,132,199,0.25)]',
+        ? 'border-red-600 shadow-[0_4px_10px_rgba(220,38,38,0.3)]'
+        : 'border-sky-600 shadow-[0_4px_10px_rgba(2,132,199,0.3)]',
       isSelected ? 'ring-4 ring-amber-400 scale-105 shadow-[0_0_20px_rgba(251,191,36,0.9)] z-20 -translate-y-1' : '',
       isLastMovePiece ? 'ring-2 ring-yellow-500' : '',
       isInTrap ? 'opacity-85 ring-2 ring-dashed ring-amber-500 animate-pulse' : '',
