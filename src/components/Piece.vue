@@ -25,7 +25,7 @@ const isRed = computed(() => props.piece.player === 'red');
   <div
     class="relative flex items-center justify-center rounded-full select-none cursor-pointer transition-all duration-200 overflow-hidden"
     :class="[
-      size === 'sm' ? 'w-8 h-8 border-[3px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[8px]',
+      size === 'sm' ? 'w-8 h-8 border-[2.5px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[5px]',
       // Wood background with Red or Blue border
       'bg-gradient-to-b from-[#fbf4e6] via-[#eedec7] to-[#dfcda9] shadow-[0_3px_8px_rgba(0,0,0,0.35)]',
       isRed
@@ -49,7 +49,7 @@ const isRed = computed(() => props.piece.player === 'red');
     <!-- Piece Name in the Bottom Left (Red or Blue text) -->
     <span
       v-if="size !== 'sm'"
-      class="absolute bottom-0 left-0.5 sm:bottom-0.5 sm:left-1 text-[7.5px] sm:text-[9px] font-black leading-none drop-shadow-sm tracking-tighter select-none pointer-events-none"
+      class="absolute bottom-0.5 left-1 sm:bottom-0.5 sm:left-1.5 text-[8px] sm:text-[9.5px] font-black leading-none drop-shadow-sm tracking-tighter select-none pointer-events-none"
       :class="isRed ? 'text-red-700 font-oriental' : 'text-sky-800 font-oriental'"
     >
       {{ pieceName }}
