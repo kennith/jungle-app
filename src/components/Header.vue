@@ -28,14 +28,9 @@ const emit = defineEmits<{
       </div>
 
       <div>
-        <div class="flex items-center space-x-2">
-          <h1 class="text-lg sm:text-2xl font-black font-cinzel tracking-wider text-red-700 drop-shadow-sm">
-            {{ language === 'zh-TW' ? '鬥獸棋' : 'JUNGLE' }}
-          </h1>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-red-50 text-red-700 border border-red-200">
-            {{ language === 'zh-TW' ? 'Dou Shou Qi' : '鬥獸棋' }}
-          </span>
-        </div>
+        <h1 class="text-xl sm:text-2xl font-black font-cinzel tracking-wider text-red-700 drop-shadow-sm">
+          {{ language === 'zh-TW' ? '鬥獸棋' : 'JUNGLE' }}
+        </h1>
         <p class="text-[10px] sm:text-xs text-slate-500 hidden sm:block">
           {{ t(language, 'tagline') }}
         </p>
