@@ -46,10 +46,10 @@ function handleCellClick(pos: Position) {
 </script>
 
 <template>
-  <div class="relative flex flex-col items-center justify-center p-2 sm:p-4">
-    <!-- 7x9 Board Surface with Solid Filled Grid Borders and Sharp Corners -->
+  <div class="relative w-full flex flex-col items-center justify-center p-0 sm:p-2">
+    <!-- 7x9 Board Surface with Solid Filled Grid Borders, full-width on mobile -->
     <div
-      class="grid grid-cols-7 gap-[1.5px] sm:gap-[2px] p-[2px] sm:p-[3px] bg-red-700 border-4 sm:border-[6px] border-red-700 rounded-none shadow-2xl w-[310px] sm:w-[420px] md:w-[480px] max-w-[92vw] overflow-hidden"
+      class="grid grid-cols-7 gap-[1px] sm:gap-[2px] p-[1.5px] sm:p-[3px] bg-red-700 border-[3px] sm:border-[5px] border-red-700 rounded-none shadow-xl w-full sm:w-[420px] md:w-[480px] max-w-full sm:max-w-[480px] overflow-hidden"
     >
       <template v-for="r in BOARD_ROWS" :key="r">
         <template v-for="c in BOARD_COLS" :key="c">
