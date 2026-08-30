@@ -35,6 +35,8 @@ const isOccupantTrapped = computed(() => {
 // Rotate Blue terrain elements (Den, Trap, and Watermarks) 180 deg in 2P mode
 const isBlueTerrainRotated = computed(() => props.mode === 'pvp' && props.cellInfo.owner === 'blue');
 const isBlueWatermarkRotated = computed(() => props.mode === 'pvp' && props.cellInfo.row <= 2);
+// Rotate Right River wave and label 180 deg in 2P mode for Blue's perspective
+const isRightRiverRotated = computed(() => props.mode === 'pvp' && isRiverCell.value && props.cellInfo.col >= 4);
 
 const isCaptureTarget = computed(() => {
   return props.isValidMoveTarget && props.piece !== null;
@@ -60,6 +62,7 @@ function handleClick() {
     <div
       v-if="isRiverCell"
       class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none"
+      :class="isRightRiverRotated ? 'rotate-180' : ''"
     >
       <!-- Red Wavy Water Lines -->
       <svg class="absolute inset-0 w-full h-full text-red-600/50" viewBox="0 0 100 100" preserveAspectRatio="none">
