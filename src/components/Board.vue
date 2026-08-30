@@ -258,6 +258,7 @@ onUnmounted(() => {
               dragState.hoveredPos?.col === c - 1 &&
               dragState.hoveredPos?.row === r - 1
             "
+            :current-turn="gameState.currentTurn"
             :mode="mode"
             :language="language"
             @click-cell="handleCellClick"

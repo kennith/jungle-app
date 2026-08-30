@@ -3,15 +3,21 @@ import { computed } from 'vue';
 import { Piece, Language } from '../types/game';
 import { ANIMALS } from '../constants/board';
 
-const props = defineProps<{
-  piece: Piece;
-  isSelected?: boolean;
-  isLastMovePiece?: boolean;
-  isInTrap?: boolean;
-  isRotated?: boolean;
-  language: Language;
-  size?: 'sm' | 'md' | 'lg';
-}>();
+const props = withDefaults(
+  defineProps<{
+    piece: Piece;
+    isSelected?: boolean;
+    isLastMovePiece?: boolean;
+    isInTrap?: boolean;
+    isRotated?: boolean;
+    isInteractable?: boolean;
+    language: Language;
+    size?: 'sm' | 'md' | 'lg';
+  }>(),
+  {
+    isInteractable: true,
+  }
+);
 
 const meta = computed(() => ANIMALS[props.piece.type]);
 
@@ -24,7 +30,7 @@ const isRed = computed(() => props.piece.player === 'red');
 
 <template>
   <div
-    class="relative flex items-center justify-center rounded-full select-none cursor-pointer transition-all duration-200"
+    class="relative flex items-center justify-center rounded-full select-none transition-all duration-200"
     :class="[
       size === 'sm' ? 'w-8 h-8 border-[2.5px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[4px] sm:border-[5px]',
       // Solid white background with Red or Blue border
@@ -36,7 +42,7 @@ const isRed = computed(() => props.piece.player === 'red');
       isLastMovePiece ? 'ring-2 ring-yellow-500 ring-inset' : '',
       isInTrap ? 'opacity-85 ring-2 ring-dashed ring-amber-500 animate-pulse ring-inset' : '',
       isRotated ? 'rotate-180' : '',
-      'hover:scale-[1.02] active:scale-95'
+      isInteractable ? 'hover:scale-[1.02] active:scale-95 cursor-pointer' : 'cursor-default'
     ]"
     :title="`${pieceName} (${isRed ? (language === 'zh-TW' ? '紅方' : 'Red') : (language === 'zh-TW' ? '藍方' : 'Blue')})`"
   >

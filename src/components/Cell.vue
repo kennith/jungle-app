@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { CellInfo, GameMode, Language, Piece, Position } from '../types/game';
+import { CellInfo, GameMode, Language, Piece, Player, Position } from '../types/game';
 import { getStartingSquareWatermark } from '../constants/board';
 import PieceComponent from './Piece.vue';
 
@@ -15,6 +15,7 @@ const props = defineProps<{
   isRotated?: boolean;
   isDraggingOrigin?: boolean;
   isDragHovered?: boolean;
+  currentTurn?: Player;
   mode?: GameMode;
   language: Language;
 }>();
@@ -33,6 +34,15 @@ const startingWatermark = computed(() => getStartingSquareWatermark(props.cellIn
 const isOccupantTrapped = computed(() => {
   if (!props.piece || !isTrapCell.value) return false;
   return props.cellInfo.owner !== props.piece.player;
+});
+
+// Check if piece belongs to current player's turn
+const isPieceOfCurrentTurn = computed(() => {
+  return props.piece !== null && props.piece.player === props.currentTurn;
+});
+
+const isInteractable = computed(() => {
+  return isPieceOfCurrentTurn.value || Boolean(props.isValidMoveTarget);
 });
 
 // Rotate Blue terrain elements (Den, Trap, and Watermarks) 180 deg in 2P mode
@@ -60,16 +70,16 @@ function handlePointerDown(e: PointerEvent) {
     :data-cell-row="cellInfo.row"
     class="relative aspect-square w-full flex items-center justify-center bg-white transition-colors duration-150 overflow-hidden group select-none touch-none"
     :class="[
-      // Cursor style
-      (piece || isValidMoveTarget) ? 'cursor-pointer' : 'cursor-default',
+      // Cursor style: only pointer on interactable cells
+      isInteractable ? 'cursor-pointer' : 'cursor-default',
       // Selection & Move Highlights (all ring-inset to stay strictly inside square grid)
       isSelected ? 'bg-amber-100/80 ring-2 sm:ring-3 ring-amber-500 ring-inset z-10' : '',
       isLastMoveFrom ? 'bg-amber-100/90 ring-2 ring-amber-400 ring-inset' : '',
       isLastMoveTo ? 'bg-amber-200/95 ring-3 ring-amber-500 ring-inset' : '',
       isHintTarget ? 'ring-3 ring-emerald-500 ring-inset animate-pulse bg-emerald-50' : '',
       isDragHovered && isValidMoveTarget ? 'bg-amber-200/90 ring-3 sm:ring-4 ring-amber-400 ring-inset z-20' : '',
-      // Only apply hover background when there is a game piece on the cell or when it is a valid destination
-      !isSelected && (piece || isValidMoveTarget) ? 'hover:bg-amber-50/70' : '',
+      // Only apply hover background when the cell is interactable and not already selected
+      !isSelected && isInteractable ? 'hover:bg-amber-50/70' : '',
     ]"
     @click="handleClick"
     @pointerdown="handlePointerDown"
@@ -149,6 +159,7 @@ function handlePointerDown(e: PointerEvent) {
         :is-in-trap="isOccupantTrapped"
         :is-last-move-piece="isLastMoveTo"
         :is-rotated="isRotated"
+        :is-interactable="isPieceOfCurrentTurn || Boolean(isValidMoveTarget)"
         :language="language"
       />
     </div>
