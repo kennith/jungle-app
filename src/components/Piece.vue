@@ -26,7 +26,7 @@ const isRed = computed(() => props.piece.player === 'red');
   <div
     class="relative flex items-center justify-center rounded-full select-none cursor-pointer transition-all duration-200 overflow-hidden"
     :class="[
-      size === 'sm' ? 'w-8 h-8 border-[2.5px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[5px]',
+      size === 'sm' ? 'w-8 h-8 border-[2.5px]' : 'w-full h-full max-w-[68px] max-h-[68px] aspect-square border-[4px] sm:border-[5px]',
       // Transparent background with Red or Blue border
       'bg-transparent',
       isRed
@@ -40,22 +40,24 @@ const isRed = computed(() => props.piece.player === 'red');
     ]"
     :title="`${pieceName} (${isRed ? (language === 'zh-TW' ? '紅方' : 'Red') : (language === 'zh-TW' ? '藍方' : 'Blue')})`"
   >
-    <!-- Main Animal Emoji Identifier in Center -->
-    <span
-      class="leading-none select-none transition-transform filter drop-shadow-sm flex items-center justify-center pointer-events-none"
-      :class="size === 'sm' ? 'text-base sm:text-lg' : 'text-2xl sm:text-3xl md:text-4xl'"
-    >
-      {{ meta.emoji }}
-    </span>
+    <!-- Main Animal Emoji with Overlaid Label (locked relative to emoji on all screen widths) -->
+    <div class="relative flex items-center justify-center pointer-events-none select-none">
+      <span
+        class="leading-none select-none transition-transform filter drop-shadow-sm flex items-center justify-center"
+        :class="size === 'sm' ? 'text-base' : 'text-2xl sm:text-3xl md:text-4xl pb-0.5'"
+      >
+        {{ meta.emoji }}
+      </span>
 
-    <!-- Piece Name Overlaid on Top of Emoji without background -->
-    <span
-      v-if="size !== 'sm'"
-      class="absolute bottom-0 left-0.5 sm:bottom-0.5 sm:left-1 text-xs sm:text-sm md:text-base font-black leading-none drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-tighter select-none pointer-events-none font-oriental z-10"
-      :class="isRed ? 'text-red-700' : 'text-sky-800'"
-    >
-      {{ pieceName }}
-    </span>
+      <!-- Piece Name Overlaid directly on the Emoji across all screen widths -->
+      <span
+        v-if="size !== 'sm'"
+        class="absolute -bottom-0.5 -left-1 sm:-bottom-1 sm:-left-1.5 text-[11px] sm:text-sm md:text-base font-black leading-none drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-tighter select-none font-oriental z-10"
+        :class="isRed ? 'text-red-700' : 'text-sky-800'"
+      >
+        {{ pieceName }}
+      </span>
+    </div>
 
     <!-- Trapped warning indicator badge -->
     <div
