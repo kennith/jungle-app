@@ -126,32 +126,32 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <!-- Actions: Undo, Redo, Hint -->
-    <div class="grid grid-cols-3 gap-2 pt-1 border-t border-slate-200">
+    <!-- Actions: Undo, Redo, Hint as Grid Rows -->
+    <div class="grid grid-rows-3 gap-2 pt-1 border-t border-slate-200">
       <button
-        class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold transition-all shadow-sm border border-slate-300"
+        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold transition-all shadow-sm border border-slate-300"
         :disabled="!canUndo || isAiThinking"
         @click="emit('undo')"
       >
-        <Undo2 class="w-3.5 h-3.5 text-red-600" />
+        <Undo2 class="w-4 h-4 text-red-600" />
         <span>{{ t(language, 'undo') }}</span>
       </button>
 
       <button
-        class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold transition-all shadow-sm border border-slate-300"
+        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold transition-all shadow-sm border border-slate-300"
         :disabled="!canRedo || isAiThinking"
         @click="emit('redo')"
       >
-        <Redo2 class="w-3.5 h-3.5 text-red-600" />
+        <Redo2 class="w-4 h-4 text-red-600" />
         <span>{{ t(language, 'redo') }}</span>
       </button>
 
       <button
-        class="flex items-center justify-center space-x-1.5 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold transition-all shadow-sm active:scale-95"
+        class="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold transition-all shadow-sm active:scale-95"
         :disabled="isGameOver || isAiThinking"
         @click="emit('hint')"
       >
-        <Lightbulb class="w-3.5 h-3.5 text-yellow-200" />
+        <Lightbulb class="w-4 h-4 text-yellow-200" />
         <span>{{ t(language, 'hint') }}</span>
       </button>
     </div>
